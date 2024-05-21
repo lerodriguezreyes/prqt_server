@@ -16,12 +16,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('trust proxy', 1);
+app.enable('trust proxy');
+
+// cors middleware before the routes
 app.use(
     cors({
-      origin: [process.env.REACT_APP_URI]  // <== URL of our future React app
+      origin: [process.env.REACT_APP_URI],
     })
   );
-
 
 app.use('/signUp', signUpRouter)
 
