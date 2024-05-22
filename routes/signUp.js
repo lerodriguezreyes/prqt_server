@@ -8,14 +8,14 @@ router.post("/new", (req, res, next) => {
   
     // Check if the email is provided as an empty string
     if (!email) {
-        res.status(400).json({ message: "Please provide an email for subscription." });
+        res.status(400).json({ message: "Error: please provide an email for subscription." });
         return;
     }
 
     // Use regex to validate the email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!emailRegex.test(email)) {
-        res.status(400).json({ message: "Provide a valid email address." });
+        res.status(400).json({ message: "Error: provide a valid email address." });
         return;
     }
 
@@ -23,14 +23,14 @@ router.post("/new", (req, res, next) => {
     SignUp.findOne({ email })
         .then((foundEmail) => {
             if (foundEmail) {
-                res.status(400).json({ message: "Email is already registered." });
+                res.status(400).json({ message: "Error: email is already registered." });
                 return;
             }
             // Create the email if not found
             SignUp.create({ email })
                 .then((newEmail) => {
                     console.log("Email provided by user ====>", newEmail);
-                    res.json(newEmail);
+                    res.status(200).json({ message: "Thank you, subscribe succesful.", newEmail });
                 })
                 .catch((err) => {
                     console.log("Error while registering email:", err);
