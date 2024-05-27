@@ -22,7 +22,7 @@ app.enable('trust proxy');
 // cors middleware before the routes
 app.use(
     cors({
-      origin: [process.env.REACT_APP_URI],
+      origin: [process.env.REACT_APP_URI, "https://puertoricoquieretech.com"],
     })
   );
 
